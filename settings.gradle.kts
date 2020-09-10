@@ -10,3 +10,4 @@ pluginManagement {
     }
 }
 include("ok-favorites-be-common")
+include("ok-favorites-mp-common")
