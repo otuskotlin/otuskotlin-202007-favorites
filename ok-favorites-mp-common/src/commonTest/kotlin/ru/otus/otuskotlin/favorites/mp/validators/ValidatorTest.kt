@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.favorites.common.validators
+package ru.otus.otuskotlin.favorites.mp.validators
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -20,9 +20,9 @@ internal class ValidatorTest {
     class SomeValidator: Validator<Int> {
         private val field: String = "field"
         override fun validate(arg: Int): ValidationResult = ValidationResult(
-                if(arg < 0) HandleError(code = "negative", field = field, level = HandleError.Level.FATAL) else null,
-                if(arg < 10) HandleError(code = "too-big", field = field, level = HandleError.Level.ERROR) else null,
-                if(arg == 5) HandleError(code = "exact", field = field, level = HandleError.Level.INFO) else null,
+                if (arg < 0) HandleError(code = "negative", field = field, level = HandleError.Level.FATAL) else null,
+                if (arg < 10) HandleError(code = "too-big", field = field, level = HandleError.Level.ERROR) else null,
+                if (arg == 5) HandleError(code = "exact", field = field, level = HandleError.Level.INFO) else null,
                 HandleError(code = "some", field = field, level = HandleError.Level.INFO)
         )
 

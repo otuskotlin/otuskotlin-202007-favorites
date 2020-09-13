@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.favorites.common.validators
+package ru.otus.otuskotlin.favorites.mp.validators
 
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmName

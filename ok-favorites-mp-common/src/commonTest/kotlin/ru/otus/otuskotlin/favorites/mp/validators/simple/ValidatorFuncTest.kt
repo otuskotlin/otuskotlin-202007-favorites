@@ -1,8 +1,8 @@
 package ru.otus.otuskotlin.common.validators
 
-import ru.otus.otuskotlin.favorites.common.validators.HandleError
-import ru.otus.otuskotlin.favorites.common.validators.ValidationResult
-import ru.otus.otuskotlin.favorites.common.validators.simple.ValidatorFunc
+import ru.otus.otuskotlin.favorites.mp.validators.HandleError
+import ru.otus.otuskotlin.favorites.mp.validators.ValidationResult
+import ru.otus.otuskotlin.favorites.mp.validators.simple.ValidatorFunc
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
