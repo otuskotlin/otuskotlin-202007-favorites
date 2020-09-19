@@ -11,3 +11,4 @@ pluginManagement {
 }
 include("ok-favorites-be-common")
 include("ok-favorites-mp-common")
+include("ok-favorites-mp-transport-models")
