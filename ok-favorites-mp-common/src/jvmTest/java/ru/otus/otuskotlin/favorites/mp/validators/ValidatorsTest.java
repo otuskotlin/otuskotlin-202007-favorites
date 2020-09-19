@@ -48,7 +48,6 @@ public class ValidatorsTest {
         ValidationResult result = ValidationResult.Companion.getSUCCESS();
 
         ValidationResult result1 = ValidationResult.getSUCCESS();
-//        ValidationResult result1 = ValidationResult.SUCCESS;
 
         ValidationResult result2 = ValidationResult.OK;
 
