@@ -8,6 +8,5 @@ data class KmpFavoritesItem (
     var entityType: String? = null,
     var entityId: String? = null,
     var description: String? = null,
-    var uri: String? = null,
-    var permissions: MutableSet<String>? = null
+    var uri: String? = null
 )
