@@ -7,11 +7,7 @@ import ru.otus.otuskotlin.favorites.mp.transport.models.KmpFavoritesError
 import ru.otus.otuskotlin.favorites.mp.transport.models.KmpFavoritesResultStatuses
 import ru.otus.otuskotlin.favorites.mp.transport.models.item.*
 
-fun FavoritesItemContext.setQuery(save: KmpFavoritesItemPut) = this.apply {
-    requestFavoritesItem = save.model()
-}
-
-fun FavoritesItemContext.setQuery(save: KmpFavoritesItemUpdate) = this.apply {
+fun FavoritesItemContext.setQuery(save: KmpFavoritesItemSave) = this.apply {
     requestFavoritesItem = save.model()
 }
 
@@ -19,12 +15,18 @@ fun FavoritesItemContext.setQuery(get: KmpFavoritesItemGet) = this.apply {
     requestUserId = get.userId ?: ""
     requestEntityType = get.entityType ?: ""
     requestEntityId = get.entityId ?: ""
+    requestFavoritesItem.entityId = get.entityId ?: ""
+    requestFavoritesItem.userId = get.userId ?: ""
+    requestFavoritesItem.entityType = get.entityType ?: ""
 }
 
 fun FavoritesItemContext.setQuery(del: KmpFavoritesItemRemove) = this.apply {
     requestUserId = del.userId ?: ""
     requestEntityType = del.entityType ?: ""
     requestEntityId = del.entityId ?: ""
+    requestFavoritesItem.entityId = del.entityId ?: ""
+    requestFavoritesItem.userId = del.userId ?: ""
+    requestFavoritesItem.entityType = del.entityType ?: ""
 }
 
 fun FavoritesItemContext.setQuery(index: KmpFavoritesItemIndex) = this.apply {
@@ -37,7 +39,7 @@ fun FavoritesItemContext.resultItem(): KmpFavoritesItemResponse = KmpFavoritesIt
     status = kmpStatus()
 )
 
-fun FavoritesItemContext.resultIndex(): KmpFavoritesItemIndex = KmpFavoritesItemIndex(
+fun FavoritesItemContext.resultIndex(): KmpFavoritesItemResponseIndex = KmpFavoritesItemResponseIndex(
     data = listOf(responseFavoritesItem.kmp()),
     errors = errors.map { it.kmp() },
     status = KmpFavoritesResultStatuses.SUCCESS
@@ -55,7 +57,6 @@ fun KmpFavoritesItemSave.model() = FavoritesItemModel(
     entityId = entityId.modelToString(),
     description = description.modelToString(),
     uri = uri.modelToString()
-
 )
 
 private fun String?.modelToString() = this?.takeIf { it.isNotBlank() } ?: ""

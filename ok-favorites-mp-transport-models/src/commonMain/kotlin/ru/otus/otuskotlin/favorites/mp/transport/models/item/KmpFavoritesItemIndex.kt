@@ -7,12 +7,12 @@ import ru.otus.otuskotlin.favorites.mp.transport.models.KmpFavoritesResultStatus
 
 @Serializable
 data class KmpFavoritesItemIndex(
-    val data: List<KmpFavoritesItem>? = null,
     var limit: Long? = null,
     var offset: Long? = null,
-    override val status: KmpFavoritesResultStatuses? = null,
-    override val errors: List<KmpFavoritesError>? = null
-): KmpFavoritesResponse(
-    status = status,
-    errors = errors
-)
+    var filter: Filter? = null
+) {
+    @Serializable
+    data class Filter(
+        var searchString: String? = null
+    )
+}
