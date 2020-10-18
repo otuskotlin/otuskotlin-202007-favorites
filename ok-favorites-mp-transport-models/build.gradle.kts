@@ -44,15 +44,12 @@ kotlin {
             }
         }
 
-
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                if (serializationVersion.startsWith("0.")) {
-                    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serializationVersion")
-                }
             }
         }
+
         val jsTest by getting {
             dependencies {
                 implementation(kotlin("test"))

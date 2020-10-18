@@ -41,8 +41,8 @@ kotlin {
         }
         val jsTest by getting {
             dependencies {
-                implementation(npm("is-sorted"))
-                implementation(npm("mathjs"))
+                implementation(npm("is-sorted","1.0.5"))
+                implementation(npm("mathjs", "1.0.0"))
                 implementation(kotlin("test"))
                 implementation(kotlin("test-js"))
             }

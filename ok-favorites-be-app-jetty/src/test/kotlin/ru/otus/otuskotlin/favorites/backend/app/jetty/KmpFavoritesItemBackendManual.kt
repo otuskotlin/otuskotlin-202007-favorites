@@ -3,33 +3,29 @@ package ru.otus.otuskotlin.favorites.backend.app.jetty
 import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.fuel.httpPost
-import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 import org.junit.Assert.assertTrue
 import org.junit.Ignore
 import org.junit.Test
 import ru.otus.otuskotlin.favorites.mp.transport.models.item.*
 import java.util.*
 import kotlin.test.assertEquals
+import kotlinx.serialization.json.Json
 
-@ImplicitReflectionSerializer
 @Ignore
 class KmpFavoritesItemBackendManual {
-    val json = Json(JsonConfiguration.Stable)
-
     @Test
     fun `call get controller`() {
         val kmpFavoritesItemGet = KmpFavoritesItemGet(
             userId = "user-id",
-            entityType = "book",
-            entityId = UUID.randomUUID().toString()
+            entityType = "books",
+            entityId = "678"
         )
 
         val (request, response, result) = "http://localhost:8080/favorites/get".httpPost()
-            .jsonBody(json.stringify(KmpFavoritesItemGet.serializer(),kmpFavoritesItemGet))
+            .jsonBody(Json.encodeToString(KmpFavoritesItemGet.serializer(), kmpFavoritesItemGet))
             .response()
-        val itemResponse = deserialize<KmpFavoritesItemResponse>(response)
+        val itemResponse =
+            Json.decodeFromString(KmpFavoritesItemResponse.serializer(), response.body().asString("application/json"))
 
         assertEquals(kmpFavoritesItemGet.userId, itemResponse.data?.userId)
         assertEquals(kmpFavoritesItemGet.entityType, itemResponse.data?.entityType)
@@ -48,9 +44,10 @@ class KmpFavoritesItemBackendManual {
         )
 
         val (request, response, result) = "http://localhost:8080/favorites/index".httpPost()
-            .jsonBody(json.stringify(KmpFavoritesItemIndex.serializer(),kmpFavoritesItemIndex))
+            .jsonBody(Json.encodeToString(KmpFavoritesItemIndex.serializer(), kmpFavoritesItemIndex))
             .response()
-        val itemResponse = deserialize<KmpFavoritesItemResponseIndex>(response)
+        val itemResponse =
+            Json.decodeFromString(KmpFavoritesItemResponseIndex.serializer(), response.body().asString("application/json"))
 
         assertTrue(itemResponse.data!!.size>0)
     }
@@ -60,15 +57,16 @@ class KmpFavoritesItemBackendManual {
         val kmpFavoritesItemPut = KmpFavoritesItemPut(
             userId = "user-id",
             entityType = "book",
-            entityId = UUID.randomUUID().toString(),
+            entityId = "678",
             description = "Kotlin for beginners",
             uri = "http://ddhhd.org/jdjdj"
         )
 
         val (request, response, result) = "http://localhost:8080/favorites/put".httpPost()
-            .jsonBody(json.stringify(KmpFavoritesItemPut.serializer(),kmpFavoritesItemPut))
+            .jsonBody(Json.encodeToString(KmpFavoritesItemPut.serializer(),kmpFavoritesItemPut))
             .response()
-        val itemResponse = deserialize<KmpFavoritesItemResponse>(response)
+        val itemResponse =
+            Json.decodeFromString(KmpFavoritesItemResponse.serializer(), response.body().asString("application/json"))
 
         assertEquals(kmpFavoritesItemPut.userId, itemResponse.data?.userId)
         assertEquals(kmpFavoritesItemPut.entityType, itemResponse.data?.entityType)
@@ -82,15 +80,16 @@ class KmpFavoritesItemBackendManual {
         val kmpFavoritesItemUpdate = KmpFavoritesItemUpdate(
             userId = "user-id",
             entityType = "book",
-            entityId = UUID.randomUUID().toString(),
+            entityId = "678",
             description = "Kotlin for beginners",
             uri = "http://ddhhd.org/jdjdj"
         )
 
         val (request, response, result) = "http://localhost:8080/favorites/update".httpPost()
-            .jsonBody(json.stringify(KmpFavoritesItemUpdate.serializer(),kmpFavoritesItemUpdate))
+            .jsonBody(Json.encodeToString(KmpFavoritesItemUpdate.serializer(),kmpFavoritesItemUpdate))
             .response()
-        val itemResponse = deserialize<KmpFavoritesItemResponse>(response)
+        val itemResponse =
+            Json.decodeFromString(KmpFavoritesItemResponse.serializer(), response.body().asString("application/json"))
 
         assertEquals(kmpFavoritesItemUpdate.userId, itemResponse.data?.userId)
         assertEquals(kmpFavoritesItemUpdate.entityType, itemResponse.data?.entityType)
@@ -104,13 +103,14 @@ class KmpFavoritesItemBackendManual {
         val kmpFavoritesItemRemove = KmpFavoritesItemRemove(
             userId = "user-id",
             entityType = "book",
-            entityId = UUID.randomUUID().toString()
+            entityId = "678"
         )
 
         val (request, response, result) = "http://localhost:8080/favorites/remove".httpPost()
-            .jsonBody(json.stringify(KmpFavoritesItemRemove.serializer(),kmpFavoritesItemRemove))
+            .jsonBody(Json.encodeToString(KmpFavoritesItemRemove.serializer(),kmpFavoritesItemRemove))
             .response()
-        val itemResponse = deserialize<KmpFavoritesItemResponse>(response)
+        val itemResponse =
+            Json.decodeFromString(KmpFavoritesItemResponse.serializer(), response.body().asString("application/json"))
 
         println(itemResponse)
         assertEquals(kmpFavoritesItemRemove.userId, itemResponse.data?.userId)
@@ -119,8 +119,5 @@ class KmpFavoritesItemBackendManual {
 
     }
 
-    inline fun <reified T : Any> deserialize(r: Response): T {
-        val je = json.parseJson(r.body().asString("application/json"))
-        return json.fromJson(je)
-    }
+
 }
