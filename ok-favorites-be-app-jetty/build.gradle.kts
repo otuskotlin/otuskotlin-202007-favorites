@@ -32,17 +32,10 @@ dependencies {
     implementation("org.glassfish.jersey.core:jersey-common:2.31")
     implementation("org.glassfish.jaxb:jaxb-runtime:2.3.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-//    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
     implementation("org.glassfish.jersey.media:jersey-media-json-jackson:2.23.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.5.5-2")
-
-    if (serializationVersion.startsWith("0.")) {
-        implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
-        implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
-    } else {
-        implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
-    }
-//    testImplementation("org.spockframework:spock-core:1.0-groovy-2.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
     testImplementation("org.jetbrains.spek:spek-api:1.1.5")
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
