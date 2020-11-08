@@ -15,7 +15,7 @@ class FavoritesItemCrud(
 
 //    suspend fun get(context: UserContext) = getChain.exec(context)
 //    suspend fun index(context: UserContext) = indexChain.exec(context)
-    suspend fun create(context: FavoritesItemContext) = putChain.exec(context)
+    suspend fun put(context: FavoritesItemContext) = putChain.exec(context)
 //    suspend fun update(context: UserContext) = updateChain.exec(context)
 //    suspend fun delete(context: UserContext) = deleteChain.exec(context)
 }

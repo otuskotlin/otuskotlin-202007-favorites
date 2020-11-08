@@ -13,9 +13,9 @@ val stubPut = cor<FavoritesItemContext> {
         isApplicable { stubPutCase == FavoritesPutStubCases.SUCCESS }
         exec {
             responseFavoritesItem = FavoritesItemModel(
-                userId = requestUserId,
-                entityType = requestEntityId,
-                entityId = requestEntityId,
+                userId = requestFavoritesItem.userId,
+                entityType = requestFavoritesItem.entityType,
+                entityId = requestFavoritesItem.entityId,
                 description = requestFavoritesItem.description,
                 uri = requestFavoritesItem.uri
             )

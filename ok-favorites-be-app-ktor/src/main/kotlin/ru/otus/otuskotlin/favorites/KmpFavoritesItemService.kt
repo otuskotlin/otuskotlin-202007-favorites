@@ -5,13 +5,14 @@ import ru.otus.otuskotlin.favorites.backend.common.FavoritesItemContext
 import ru.otus.otuskotlin.favorites.backend.common.FavoritesItemContextStatus
 import ru.otus.otuskotlin.favorites.backend.common.errors.InternalServerError
 import ru.otus.otuskotlin.favorites.backend.common.model.FavoritesItemModel
+import ru.otus.otuskotlin.favorites.backend.logics.FavoritesItemCrud
 import ru.otus.otuskotlin.favorites.backend.transport.mp.resultIndex
 import ru.otus.otuskotlin.favorites.backend.transport.mp.resultItem
 import ru.otus.otuskotlin.favorites.backend.transport.mp.setQuery
 import ru.otus.otuskotlin.favorites.mp.transport.models.item.*
 import java.lang.RuntimeException
 
-class KmpFavoritesItemService {
+class KmpFavoritesItemService(val crud: FavoritesItemCrud) {
 
     private val log = LoggerFactory.getLogger(this::class.java)!!
 
@@ -50,15 +51,14 @@ class KmpFavoritesItemService {
         resultIndex()
     }
 
-    fun put(query: KmpFavoritesItemPut): KmpFavoritesItemResponse = FavoritesItemContext().run {
+    suspend fun put(query: KmpFavoritesItemPut): KmpFavoritesItemResponse = FavoritesItemContext().run {
         try {
-            setQuery(query)
-            responseFavoritesItem = requestFavoritesItem.copy()
-            status = FavoritesItemContextStatus.SUCCESS
+            crud.put(setQuery(query))
         } catch (e: Throwable) {
             log.error("Create chain error", e)
             errors += InternalServerError.instance
         }
+
         resultItem()
     }
 

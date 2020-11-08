@@ -8,6 +8,10 @@ import ru.otus.otuskotlin.favorites.mp.transport.models.KmpFavoritesResultStatus
 import ru.otus.otuskotlin.favorites.mp.transport.models.item.*
 
 fun FavoritesItemContext.setQuery(save: KmpFavoritesItemSave) = this.apply {
+    requestUserId = save.userId ?: ""
+    requestEntityType = save.entityType ?: ""
+    requestEntityId = save.entityId ?: ""
+
     requestFavoritesItem = save.model()
 }
 

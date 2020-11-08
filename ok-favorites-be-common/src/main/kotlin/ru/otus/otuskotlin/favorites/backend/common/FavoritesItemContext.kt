@@ -16,7 +16,7 @@ data class FavoritesItemContext(
     var status: FavoritesItemContextStatus = FavoritesItemContextStatus.NONE,
 
     var workMode: WorkModes = WorkModes.DEFAULT,
-    var stubPutCase: FavoritesPutStubCases = FavoritesPutStubCases.NONE,
+    var stubPutCase: FavoritesPutStubCases = FavoritesPutStubCases.SUCCESS,
 
 
 //    var stubGetCase: UserGetStubCases = UserGetStubCases.NONE,
