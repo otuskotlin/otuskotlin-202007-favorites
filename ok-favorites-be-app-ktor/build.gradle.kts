@@ -56,12 +56,13 @@ dependencies {
     } else {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
     }
+    implementation(project(":ok-favorites-be-common"))
 
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
 }
 
-kotlin.sourceSets["main"].kotlin.srcDirs("src")
-kotlin.sourceSets["test"].kotlin.srcDirs("test")
+kotlin.sourceSets["main"].kotlin.srcDirs("src/main/kotlin")
+kotlin.sourceSets["test"].kotlin.srcDirs("src/test/kotlin")
 
-sourceSets["main"].resources.srcDirs("resources")
-sourceSets["test"].resources.srcDirs("testresources")
+sourceSets["main"].resources.srcDirs("src/main/resources")
+sourceSets["test"].resources.srcDirs("src/test/resources")

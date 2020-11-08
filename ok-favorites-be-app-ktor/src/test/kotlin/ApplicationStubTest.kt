@@ -1,5 +1,3 @@
-package ru.otus.otuskotlin.favorites
-
 import com.typesafe.config.ConfigFactory
 import io.ktor.config.HoconApplicationConfig
 import io.ktor.http.ContentType
@@ -13,7 +11,6 @@ import org.junit.BeforeClass
 import org.junit.Test
 import ru.otus.otuskotlin.favorites.mp.transport.models.KmpFavoritesResultStatuses
 import ru.otus.otuskotlin.favorites.mp.transport.models.item.*
-import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlin.test.fail
