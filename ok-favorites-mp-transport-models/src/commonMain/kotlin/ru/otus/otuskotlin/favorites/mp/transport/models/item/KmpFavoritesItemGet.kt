@@ -7,8 +7,19 @@ data class KmpFavoritesItemGet(
     var userId: String? = null,
     var entityType: String? = null,
     var entityId: String? = null,
-    val debug: KmpDebug? = null
+    val debug: Debug? = null
 ) {
     @Serializable
-    class KmpDebug {}
+    data class Debug(
+        val stub: StubCases? = null,
+        //val db: KmpUserDbModes? = null
+    ) {
+
+    }
+
+    @Serializable
+    enum class StubCases {
+        NONE,
+        SUCCESS
+    }
 }

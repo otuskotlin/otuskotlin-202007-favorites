@@ -7,15 +7,15 @@ class FavoritesItemCrud(
 //        userRepoProd: IUserRepository = IUserRepository.NONE,
 //        userRepoTest: IUserRepository = IUserRepository.NONE
 ) {
-//    private val getChain = UserGetChain(userRepoProd = userRepoProd, userRepoTest = userRepoTest)
-//    private val indexChain = UserIndexChain(userRepoProd = userRepoProd, userRepoTest = userRepoTest)
+    private val getChain = FavoritesItemGetChain()
+    private val indexChain = FavoritesItemIndexChain()
     private val putChain = FavoritesItemPutChain() //userRepoProd = userRepoProd, userRepoTest = userRepoTest
-//    private val updateChain = UserUpdateChain(userRepoProd = userRepoProd, userRepoTest = userRepoTest)
-//    private val deleteChain = UserDeleteChain(userRepoProd = userRepoProd, userRepoTest = userRepoTest)
+    private val updateChain = FavoritesItemUpdateChain()
+    private val removeChain = FavoritesItemRemoveChain()
 
-//    suspend fun get(context: UserContext) = getChain.exec(context)
-//    suspend fun index(context: UserContext) = indexChain.exec(context)
+    suspend fun get(context: FavoritesItemContext) = getChain.exec(context)
+    suspend fun index(context: FavoritesItemContext) = indexChain.exec(context)
     suspend fun put(context: FavoritesItemContext) = putChain.exec(context)
-//    suspend fun update(context: UserContext) = updateChain.exec(context)
-//    suspend fun delete(context: UserContext) = deleteChain.exec(context)
+    suspend fun update(context: FavoritesItemContext) = updateChain.exec(context)
+    suspend fun remove(context: FavoritesItemContext) = removeChain.exec(context)
 }

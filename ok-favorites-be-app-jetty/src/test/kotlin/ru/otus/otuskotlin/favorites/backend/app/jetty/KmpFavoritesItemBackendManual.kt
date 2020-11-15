@@ -18,7 +18,10 @@ class KmpFavoritesItemBackendManual {
         val kmpFavoritesItemGet = KmpFavoritesItemGet(
             userId = "user-id",
             entityType = "books",
-            entityId = "678"
+            entityId = "678",
+            debug = KmpFavoritesItemGet.Debug(
+                stub = KmpFavoritesItemGet.StubCases.SUCCESS
+            )
         )
 
         val (request, response, result) = "http://localhost:8080/favorites/get".httpPost()
@@ -40,6 +43,9 @@ class KmpFavoritesItemBackendManual {
             offset = 5L,
             filter = KmpFavoritesItemIndex.Filter(
                 searchString = "created > today-15"
+            ),
+            debug = KmpFavoritesItemIndex.Debug(
+                stub = KmpFavoritesItemIndex.StubCases.NONE
             )
         )
 
@@ -59,7 +65,10 @@ class KmpFavoritesItemBackendManual {
             entityType = "book",
             entityId = "678",
             description = "Kotlin for beginners",
-            uri = "http://ddhhd.org/jdjdj"
+            uri = "http://ddhhd.org/jdjdj",
+            debug = KmpFavoritesItemPut.Debug(
+                stub = KmpFavoritesItemPut.StubCases.SUCCESS
+            )
         )
 
         val (request, response, result) = "http://localhost:8080/favorites/put".httpPost()
@@ -82,7 +91,10 @@ class KmpFavoritesItemBackendManual {
             entityType = "book",
             entityId = "678",
             description = "Kotlin for beginners",
-            uri = "http://ddhhd.org/jdjdj"
+            uri = "http://ddhhd.org/jdjdj",
+            debug = KmpFavoritesItemUpdate.Debug(
+                stub = KmpFavoritesItemUpdate.StubCases.SUCCESS
+            )
         )
 
         val (request, response, result) = "http://localhost:8080/favorites/update".httpPost()
@@ -103,7 +115,10 @@ class KmpFavoritesItemBackendManual {
         val kmpFavoritesItemRemove = KmpFavoritesItemRemove(
             userId = "user-id",
             entityType = "book",
-            entityId = "678"
+            entityId = "678",
+            debug = KmpFavoritesItemRemove.Debug(
+                stub = KmpFavoritesItemRemove.StubCases.SUCCESS
+            )
         )
 
         val (request, response, result) = "http://localhost:8080/favorites/remove".httpPost()

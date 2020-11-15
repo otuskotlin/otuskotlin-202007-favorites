@@ -1,8 +1,7 @@
 package ru.otus.otuskotlin.favorites.backend.transport.mp
 
 import ru.otus.otuskotlin.favorites.backend.common.FavoritesItemContext
-import ru.otus.otuskotlin.favorites.backend.common.model.FavoritesError
-import ru.otus.otuskotlin.favorites.backend.common.model.FavoritesItemModel
+import ru.otus.otuskotlin.favorites.backend.common.model.*
 import ru.otus.otuskotlin.favorites.mp.transport.models.KmpFavoritesError
 import ru.otus.otuskotlin.favorites.mp.transport.models.KmpFavoritesResultStatuses
 import ru.otus.otuskotlin.favorites.mp.transport.models.item.*
@@ -13,6 +12,23 @@ fun FavoritesItemContext.setQuery(save: KmpFavoritesItemSave) = this.apply {
     requestEntityId = save.entityId ?: ""
 
     requestFavoritesItem = save.model()
+
+    when(save) {
+        is KmpFavoritesItemUpdate -> {
+            stubUpdateCase = when (save.debug?.stub) {
+                KmpFavoritesItemUpdate.StubCases.SUCCESS -> FavoritesUpdateStubCases.SUCCESS
+                else -> FavoritesUpdateStubCases.NONE
+            }
+            //workMode = save.debug?.db?.model() ?: WorkModes.DEFAULT
+        }
+        is KmpFavoritesItemPut -> {
+            stubPutCase = when (save.debug?.stub) {
+                KmpFavoritesItemPut.StubCases.SUCCESS -> FavoritesPutStubCases.SUCCESS
+                else -> FavoritesPutStubCases.SUCCESS
+            }
+            //workMode = save.debug?.db?.model() ?: WorkModes.DEFAULT
+        }
+    }
 }
 
 fun FavoritesItemContext.setQuery(get: KmpFavoritesItemGet) = this.apply {
@@ -34,8 +50,17 @@ fun FavoritesItemContext.setQuery(del: KmpFavoritesItemRemove) = this.apply {
 }
 
 fun FavoritesItemContext.setQuery(index: KmpFavoritesItemIndex) = this.apply {
-//    filter = index.filter ?: UserModel.Filter
+    requestFavoritesItemFilter = index.filter?.toModel() ?: FavoritesItemIndexFilter.NONE
+    stubIndexCase = when(index.debug?.stub) {
+        KmpFavoritesItemIndex.StubCases.SUCCESS -> FavoritesIndexStubCases.SUCCESS
+        else -> FavoritesIndexStubCases.NONE
+    }
 }
+
+private fun KmpFavoritesItemIndex.Filter.toModel(): FavoritesItemIndexFilter = FavoritesItemIndexFilter(
+    searchString = searchString ?: "",
+    entityType = entityType
+)
 
 fun FavoritesItemContext.resultItem(): KmpFavoritesItemResponse = KmpFavoritesItemResponse(
     data = responseFavoritesItem.kmp(),

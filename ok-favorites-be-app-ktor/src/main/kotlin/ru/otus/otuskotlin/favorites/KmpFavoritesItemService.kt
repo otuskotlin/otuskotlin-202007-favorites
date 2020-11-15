@@ -24,26 +24,19 @@ class KmpFavoritesItemService(val crud: FavoritesItemCrud) {
         uri = "https://social.org/books/123"
     )
 
-    fun get(query: KmpFavoritesItemGet): KmpFavoritesItemResponse = FavoritesItemContext().run {
+    suspend fun get(query: KmpFavoritesItemGet): KmpFavoritesItemResponse = FavoritesItemContext().run {
         try {
-            setQuery(query)
-            responseFavoritesItem = favoritesItemModel.copy(
-                userId = query.userId ?: throw RuntimeException("No userId"),
-                entityId = query.entityId ?: throw RuntimeException("No entityId"),
-                entityType = query.entityType ?: throw RuntimeException("No entityType")
-            )
+            crud.get(setQuery(query))
         } catch (e: Throwable) {
-            log.error("Get chain error", e)
+            log.error("Create chain error", e)
             errors += InternalServerError.instance
         }
         resultItem()
     }
 
-    fun index(query: KmpFavoritesItemIndex): KmpFavoritesItemResponseIndex = FavoritesItemContext().run {
+    suspend fun index(query: KmpFavoritesItemIndex): KmpFavoritesItemResponseIndex = FavoritesItemContext().run {
         try {
-            setQuery(query)
-            responseFavoritesItem = favoritesItemModel.copy()
-            status = FavoritesItemContextStatus.SUCCESS
+            crud.index(setQuery(query))
         } catch (e: Throwable) {
             log.error("Index chain error", e)
             errors += InternalServerError.instance
@@ -55,21 +48,18 @@ class KmpFavoritesItemService(val crud: FavoritesItemCrud) {
         try {
             crud.put(setQuery(query))
         } catch (e: Throwable) {
-            log.error("Create chain error", e)
+            log.error("Put chain error", e)
             errors += InternalServerError.instance
         }
 
         resultItem()
     }
 
-    fun update(query: KmpFavoritesItemUpdate): KmpFavoritesItemResponse = FavoritesItemContext().run {
+    suspend fun update(query: KmpFavoritesItemUpdate): KmpFavoritesItemResponse = FavoritesItemContext().run {
         try {
-            setQuery(query)
-            responseFavoritesItem = requestFavoritesItem.copy()
-            status = FavoritesItemContextStatus.SUCCESS
+            crud.update(setQuery(query))
         } catch (e: Throwable) {
             log.error("Update chain error", e)
-            errors += InternalServerError.instance
         }
         resultItem()
     }

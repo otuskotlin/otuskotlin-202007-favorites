@@ -33,7 +33,10 @@ class ApplicationStubTest {
                 val body = KmpFavoritesItemGet(
                     userId = "user-id",
                     entityType = "photo",
-                    entityId = "entity-id"
+                    entityId = "entity-id",
+                    debug = KmpFavoritesItemGet.Debug (
+                        stub = KmpFavoritesItemGet.StubCases.SUCCESS
+                    )
                 )
                 val bodyString = Json.encodeToString(KmpFavoritesItemGet.serializer(), body)
                 setBody(bodyString)
@@ -55,7 +58,10 @@ class ApplicationStubTest {
                 val body = KmpFavoritesItemIndex(
                     limit = 10L,
                     offset = 5L,
-                    filter = KmpFavoritesItemIndex.Filter(searchString = "created > today-15")
+                    filter = KmpFavoritesItemIndex.Filter(searchString = "created > today-15"),
+                    debug = KmpFavoritesItemIndex.Debug(
+                        KmpFavoritesItemIndex.StubCases.SUCCESS
+                    )
                 )
                 val bodyString = Json.encodeToString(KmpFavoritesItemIndex.serializer(), body)
                 setBody(bodyString)
@@ -79,7 +85,10 @@ class ApplicationStubTest {
                     entityType = "book",
                     entityId = "890",
                     description = "Kotlin for beginners",
-                    uri = "http://ddhhd.org/jdjdj"
+                    uri = "http://ddhhd.org/jdjdj",
+                    debug = KmpFavoritesItemPut.Debug(
+                        stub = KmpFavoritesItemPut.StubCases.SUCCESS
+                    )
                 )
                 val bodyString = Json.encodeToString(KmpFavoritesItemPut.serializer(), body)
                 setBody(bodyString)
@@ -104,7 +113,10 @@ class ApplicationStubTest {
                     entityType = "book",
                     entityId = "890",
                     description = "Kotlin for beginners",
-                    uri = "http://ddhhd.org/jdjdj"
+                    uri = "http://ddhhd.org/jdjdj",
+                    debug = KmpFavoritesItemUpdate.Debug(
+                        stub = KmpFavoritesItemUpdate.StubCases.SUCCESS
+                    )
                 )
                 val bodyString = Json.encodeToString(KmpFavoritesItemUpdate.serializer(), body)
                 setBody(bodyString)
@@ -127,7 +139,10 @@ class ApplicationStubTest {
                 val body = KmpFavoritesItemRemove(
                     userId = "delete-id",
                     entityType = "photo",
-                    entityId = "456"
+                    entityId = "456",
+                    debug = KmpFavoritesItemRemove.Debug(
+                        stub = KmpFavoritesItemRemove.StubCases.SUCCESS
+                    )
 
                 )
                 val bodyString = Json.encodeToString(KmpFavoritesItemRemove.serializer(), body)
