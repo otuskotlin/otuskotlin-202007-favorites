@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":ok-favorites-be-common"))
     implementation(project(":ok-favorites-mp-transport-models"))
     implementation(project(":ok-favorites-be-transport-mp"))
+    implementation(project(":ok-favorites-be-logic"))
 
     implementation(kotlin("stdlib-jdk8"))
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
@@ -50,18 +51,20 @@ dependencies {
     implementation("io.ktor:ktor-server-core:$ktorVersion")
     implementation("io.ktor:ktor-server-host-common:$ktorVersion")
     implementation("io.ktor:ktor-serialization:$ktorVersion")
+
     if (serializationVersion.startsWith("0.")) {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
     } else {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
     }
+    implementation(project(":ok-favorites-be-common"))
 
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
 }
 
-kotlin.sourceSets["main"].kotlin.srcDirs("src")
-kotlin.sourceSets["test"].kotlin.srcDirs("test")
+kotlin.sourceSets["main"].kotlin.srcDirs("src/main/kotlin")
+kotlin.sourceSets["test"].kotlin.srcDirs("src/test/kotlin")
 
-sourceSets["main"].resources.srcDirs("resources")
-sourceSets["test"].resources.srcDirs("testresources")
+sourceSets["main"].resources.srcDirs("src/main/resources")
+sourceSets["test"].resources.srcDirs("src/test/resources")

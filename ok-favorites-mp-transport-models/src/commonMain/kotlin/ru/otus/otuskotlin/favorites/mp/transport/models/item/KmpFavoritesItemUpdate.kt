@@ -18,5 +18,16 @@ data class KmpFavoritesItemUpdate(
     uri = uri
 ) {
     @Serializable
-    class Debug
+    data class Debug(
+        val stub: StubCases? = null,
+        //val db: KmpUserDbModes? = null
+    ) {
+
+    }
+
+    @Serializable
+    enum class StubCases {
+        NONE,
+        SUCCESS
+    }
 }

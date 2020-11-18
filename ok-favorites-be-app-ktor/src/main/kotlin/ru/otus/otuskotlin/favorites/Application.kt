@@ -20,6 +20,7 @@ import io.ktor.routing.routing
 import io.ktor.serialization.json
 
 import org.slf4j.event.Level
+import ru.otus.otuskotlin.favorites.backend.logics.FavoritesItemCrud
 import ru.otus.otuskotlin.favorites.mp.transport.models.item.*
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -28,7 +29,8 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
 
-    val service = KmpFavoritesItemService()
+    val crud = FavoritesItemCrud()
+    val service = KmpFavoritesItemService(crud)
 
     install(CallLogging) {
         level = Level.TRACE
